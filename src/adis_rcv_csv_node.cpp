@@ -134,11 +134,13 @@ private:
     while (ros::ok() && !imu_.Open(device_)) {
       ROS_WARN("Keep trying to open [%s] in 1 second period...", device_.c_str());
       ros::Duration(1).sleep();
+      ros::shutdown();
     }
 
     while (ros::ok() && !imu_.Prepare()) {
       ROS_WARN("Keep trying to prepare the device in 1 second period...");
       ros::Duration(1).sleep();
+      ros::shutdown();
     }
 
     updater_.setHardwareID(imu_.GetProductIdStr());
