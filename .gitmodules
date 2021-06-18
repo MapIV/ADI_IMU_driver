@@ -1,4 +1,4 @@
 [submodule "lib"]
 	path = lib
-	url = https://github.com/technoroad/TR_IMU_LIB
+	url = https://github.com/MapIV/TR_IMU_LIB
 	branch = dev
