@@ -43,15 +43,15 @@
 
 class ImuNodeRcvCsv {
 public:
-  explicit ImuNodeRcvCsv(ros::NodeHandle nh)
+  explicit ImuNodeRcvCsv(ros::NodeHandle nh, ros::NodeHandle nh_pub)
     : node_handle_(nh) {
     
     InitParams();
 
     // Data publisher
-    imu_data_pub_ = node_handle_.advertise<sensor_msgs::Imu>("data_raw", 100);
+    imu_data_pub_ = nh_pub.advertise<sensor_msgs::Imu>("data_raw", 100);
     updater_.add("imu", this, &ImuNodeRcvCsv::Diagnostic);
-    cmd_server_ = node_handle_.advertiseService("/imu/cmd_srv", &ImuNodeRcvCsv::CmdCb, this);
+    cmd_server_ = node_handle_.advertiseService("cmd_srv", &ImuNodeRcvCsv::CmdCb, this);
 
     Prepare();
   }
@@ -247,10 +247,11 @@ private:
 };
 
 int main(int argc, char** argv) {
-  ros::init(argc, argv, "imu");
+  ros::init(argc, argv, "adis_imu_node");
   ros::NodeHandle nh("~");
+  ros::NodeHandle nh_pub;
 
-  ImuNodeRcvCsv node(nh);
+  ImuNodeRcvCsv node(nh,nh_pub);
   
   node.Spin();
   return 0;

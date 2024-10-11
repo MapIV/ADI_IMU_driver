@@ -44,4 +44,5 @@ CATKIN_IGNORE
 
 
 *.orig
+.vscode
 

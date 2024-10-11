@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="mode"        default="Register"/>
+  <arg name="device"      default="/dev/ttyACM0"/>
+  <arg name="parent_id"   default="odom"/>
+  <arg name="frame_id"    default="imu"/>
+  <arg name="rate"        default="100"/>
+
+  <node name="imu" pkg="adi_imu_tr_driver_ros1" type="adis_rcv_csv_node" output="screen" respawn="true">
+    <param name="device"    value="$(arg device)"/>
+    <param name="parent_id" value="$(arg parent_id)"/>
+    <param name="frame_id"  value="$(arg frame_id)"/>
+    <param name="rate"      value="$(arg rate)"/>
+    <param name="mode"      value="$(arg mode)"/>
+  </node>
+
+</launch>
